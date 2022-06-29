@@ -1,0 +1,33 @@
+<div class="login-maintext">
+  <span class="h5">Zarejestruj nowe konto</span>
+</div>
+<div class="login-secondarytext">
+  <span class="caption">Rejestracja trwa jedynie chwile</span>
+</div>
+<div class="form-inputs">
+  <span class="label input-label">Adres email</span>
+  <nb-form-field class="form-element">
+    <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
+    <input [(ngModel)]="email" (ngModelChange)="showEmailChange($event)" required type="text" nbInput fullWidth="true" placeholder="Wpisz swoj email" #emailControl="ngModel">
+  </nb-form-field>
+  <span class="label input-label">Twoje haslo</span>
+  <nb-form-field class="form-element">
+    <input [(ngModel)]="password" (ngModelChange)="showPasswordChange($event)" required fullWidth="true" [type]="getInputTypeFirst()" nbInput placeholder="Wpisz swoje haslo">
+    <button nbSuffix nbButton ghost (click)="toggleShowFirstPassword()">
+      <nb-icon [icon]="showPasswordFirst ? 'eye-outline' : 'eye-off-2-outline'"
+              pack="eva"
+              [attr.aria-label]="showPasswordFirst ? 'hide password' : 'show password'">
+      </nb-icon>
+    </button>
+  </nb-form-field>
+  <span class="label input-label">Wpisz haslo ponownie</span>
+  <nb-form-field class="form-element">
+    <input [(ngModel)]="passwordRepeat" (ngModelChange)="showPasswordRepeatChange($event)" required fullWidth="true" [type]="getInputTypeSecond()" nbInput placeholder="Wpisz swoje haslo">
+    <button nbSuffix nbButton ghost (click)="toggleShowSecondPassword()">
+      <nb-icon [icon]="showPasswordSecond ? 'eye-outline' : 'eye-off-2-outline'"
+              pack="eva"
+              [attr.aria-label]="showPasswordSecond ? 'hide password' : 'show password'">
+      </nb-icon>
+    </button>
+  </nb-form-field>
+</div>

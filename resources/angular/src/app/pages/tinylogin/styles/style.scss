@@ -1,0 +1,97 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.right-slideshow {
+  background-image: linear-gradient(to bottom, rgba(124, 143, 199, 0.7), rgba(51, 102, 255, 0.73)), url('../../../../assets/img/bg-one.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.form-element {
+  margin-bottom: 1rem;
+}
+
+span {
+  font-weight: 500;
+}
+
+.card {
+  padding: 4rem 5rem;
+}
+
+.card-container {
+  width: 70%;
+  min-width: fit-content;
+  max-width: 800px;
+}
+
+.login-maintext {
+  margin-bottom: .3rem;
+}
+
+.input-label {
+  margin-left: .3rem;
+
+}
+
+.form-inputs {
+  margin-top: 3rem;
+}
+
+.button-section {
+  margin-top: 3.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.pw-remind {
+  justify-content: center;
+  display: flex;
+}
+
+.pw-remind-bold {
+  color: #3366ff;
+  font-weight: bold;
+}
+
+.pw-forgot-section {
+  display: flex;
+  margin-top: 3rem;
+  justify-content: center;
+  gap: .3rem;
+}
+
+.log-reg-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  color: white;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.subheader {
+  color: white;
+  font-weight: 500;
+}
+
+.right-slideshow-info {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 50%;
+  text-align: center;
+}
+
+.right-slideshow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

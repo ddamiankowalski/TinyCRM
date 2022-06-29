@@ -1,0 +1,23 @@
+<div class="login-maintext">
+  <span class="h5">Zaloz nowe konto</span>
+</div>
+<div class="login-secondarytext">
+  <span class="caption">Bedziesz mogl korzystac z systemu po zalogowaniu</span>
+</div>
+<div class="form-inputs">
+  <span class="label input-label">Adres email</span>
+  <nb-form-field class="form-element">
+    <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
+    <input type="text" nbInput fullWidth="true" placeholder="Wpisz swoj email">
+  </nb-form-field>
+  <span class="label input-label">Twoje haslo</span>
+  <nb-form-field class="form-element">
+    <input fullWidth="true" [type]="getInputType()" nbInput placeholder="Wpisz swoje haslo">
+    <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+      <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+              pack="eva"
+              [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+      </nb-icon>
+    </button>
+  </nb-form-field>
+</div>

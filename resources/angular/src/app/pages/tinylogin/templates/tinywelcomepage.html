@@ -1,0 +1,35 @@
+<nb-layout>
+  <nb-layout-header>
+    <nb-card-body>
+      <nb-actions fullWidth="true" size="tiny">
+        <nb-action [disabled]="loggedIn" icon="search"></nb-action>
+        <span class="caption">Zapomniales haslo? </span>
+        <nb-action [disabled]="loggedIn"icon="power"></nb-action>
+        <nb-action [disabled]="loggedIn" icon="person"></nb-action>
+        <nb-action [disabled]="loggedIn" icon="home"></nb-action>
+      </nb-actions>
+    </nb-card-body>
+  </nb-layout-header>
+  <nb-layout-column class="log-reg-form">
+    <nb-card class="card-container" accent="info">
+      <nb-card-body class="card">
+        <login-form *ngIf="isLoginActive"></login-form>
+        <register-form (registerObject)="getNewUser($event)" *ngIf="!isLoginActive"></register-form>
+        <div class="button-section">
+          <button (click)="fireButtonAction()" class="btn" nbButton status="primary" size="medium" fullWidth="true">{{ isLoginActive ? 'Zaloguj' : 'Zarejestruj'}}</button>
+          <button class="btn" nbButton status="basic" size="medium" fullWidth="true" (click)="setLoginActive()">{{ isLoginActive ? 'Rejestracja' : 'Logowanie'}}</button>
+        </div>
+        <div class="pw-forgot-section">
+          <span class="caption pw-remind">Zapomniales haslo?</span>
+          <span class="caption pw-remind-bold">Wcisnij tutaj</span>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+  <nb-layout-column class="right-slideshow">
+    <div class="right-slideshow-info">
+      <span class="text-basic h1 header">Zacznij pracowac szybciej z TinyCRM</span>
+      <span class="paragraph subheader">Dzieki naszemu systemowi zorganizujesz prace swoim pracownikom i sprawisz, ze wszystko bedzie super</span>
+    </div>
+  </nb-layout-column>
+</nb-layout>
