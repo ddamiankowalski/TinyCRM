@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: 'login-form',
@@ -6,8 +6,20 @@ import { Component, Input } from "@angular/core";
   templateUrl: '../templates/loginform.html'
 })
 export class LoginForm {
-  showPassword = false;
+  @Output() loginObject = new EventEmitter<any>();
+  public newUser: any = {
+    email: null,
+    password: null,
+    formStatus: 'INVALID'
+  };
+
+  ngOnInit(): void {
+    this.loginObject.emit(this.newUser);
+  }
+
+  public showPassword: boolean = false;
   public email: string = "";
+  public password: string = "";
 
   getInputType() {
     if (this.showPassword) {
@@ -27,5 +39,15 @@ export class LoginForm {
       return "Pole jest wymagane"
     }
     return "Pole jest wymagane"
+  }
+
+  getEmailChange(model: any) {
+    this.newUser.password = model.control.value;
+    this.newUser.formStatus = model.control.status;
+  }
+
+  getPasswordChange(model: any) {
+    this.newUser.password = model.control.value;
+    this.newUser.formStatus = model.control.status;
   }
 }

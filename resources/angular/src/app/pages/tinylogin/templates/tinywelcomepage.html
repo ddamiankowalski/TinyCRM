@@ -13,13 +13,13 @@
   <nb-layout-column class="log-reg-form">
     <nb-card class="card-container" accent="info">
       <nb-card-body class="card">
-        <login-form *ngIf="isLoginActive"></login-form>
+        <login-form *ngIf="isLoginActive" (loginObject)="getNewUser($event)"></login-form>
         <register-form (registerObject)="getNewUser($event)" *ngIf="!isLoginActive"></register-form>
         <div class="button-section">
           <button [disabled]="isButtonActive()" (click)="fireButtonAction()" class="btn" nbButton status="primary" size="medium" fullWidth="true">{{ isLoginActive ? 'Zaloguj' : 'Zarejestruj'}}</button>
-          <button class="btn" nbButton status="basic" size="medium" fullWidth="true" (click)="setLoginActive()">{{ isLoginActive ? 'Rejestracja' : 'Logowanie'}}</button>
+          <button [disabled]="isLoading" class="btn" nbButton status="basic" size="medium" fullWidth="true" (click)="setLoginActive()">{{ isLoginActive ? 'Rejestracja' : 'Logowanie'}}</button>
         </div>
-        <div class="pw-forgot-section">
+        <div class="pw-forgot-section" (click)="forgotPassword()">
           <span class="caption pw-remind">Zapomniales haslo?</span>
           <span class="caption pw-remind-bold">Wcisnij tutaj</span>
         </div>

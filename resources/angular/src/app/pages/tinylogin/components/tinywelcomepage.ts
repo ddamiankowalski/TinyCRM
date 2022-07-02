@@ -3,8 +3,6 @@ import { CommonModule } from "@angular/common";
 import { Backend } from "src/app/services/backend";
 
 interface newUser {
-  first_name: string,
-  last_name: string,
   email: string,
   password: string,
   isValid: string
@@ -22,9 +20,11 @@ export class TinyWelcomePage  {
   public subtitle: string = "CRM";
   public loggedIn: boolean = true;
   public isLoginActive: boolean = true;
-  public userModel: any = {};
-
-  showPassword = false;
+  public showPassword: boolean = false;
+  public isLoading: boolean = false;
+  public userModel: any = {
+    formStatus: "INVALID"
+  };
 
   getNewUser(model: any) {
     this.userModel = model;
@@ -43,32 +43,42 @@ export class TinyWelcomePage  {
 
   setLoginActive() {
     this.isLoginActive = !this.isLoginActive;
+    this.userModel.formStatus = "INVALID"
   }
 
   fireButtonAction() {
     this.isLoginActive ? this.login() : this.register()
   }
 
-  login() {
-  }
-
   isButtonActive() {
-    return this.userModel.formStatus == "INVALID" ? true : false;
+    return this.userModel.formStatus == "INVALID" || this.isLoading ? true : false;
   }
 
   register() {
     let newUser: newUser = {
-      first_name: "firstName",
-      last_name: "lastName",
       email: this.userModel.email,
       password: this.userModel.password,
       isValid: this.userModel.formStatus
     };
 
-    console.log(newUser)
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000)
 
     this.backend.postRequest('register', JSON.stringify(newUser)).subscribe(response => {
       console.log(response);
     })
+  }
+
+  login() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000)
+  }
+
+  forgotPassword() {
+    console.log('hello')
   }
 }

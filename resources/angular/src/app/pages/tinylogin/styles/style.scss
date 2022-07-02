@@ -63,6 +63,12 @@ span {
   margin-top: 3rem;
   justify-content: center;
   gap: .3rem;
+  -webkit-user-select:none;
+  user-select: none;
+}
+
+.pw-forgot-section:hover {
+  cursor: pointer;
 }
 
 .log-reg-form {
