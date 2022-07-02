@@ -4,15 +4,15 @@
 <div class="login-secondarytext">
   <span class="caption">Rejestracja trwa jedynie chwile</span>
 </div>
-<div class="form-inputs">
-  <span class="label input-label">Adres email</span>
+<form [appMatchPassword]="['password', 'passwordRepeat']" #register="ngForm" class="form-inputs">
+  <span class="label input-label" [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }">{{ emailControl.touched && emailControl.invalid ? generateError(emailControl) : 'Adres email' }}</span>
   <nb-form-field class="form-element">
     <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
-    <input [(ngModel)]="email" (ngModelChange)="showEmailChange($event)" required type="text" nbInput fullWidth="true" placeholder="Wpisz swoj email" #emailControl="ngModel">
+    <input name="email" [(ngModel)]="email" (ngModelChange)="showEmailChange(register)" email required type="text" nbInput fullWidth="true" placeholder="Wpisz swoj email" #emailControl="ngModel" [status]="emailControl.touched && emailControl.invalid ? 'danger': 'basic'">
   </nb-form-field>
-  <span class="label input-label">Twoje haslo</span>
+  <span class="label input-label" [ngClass]="{'i-error' : passwordControl.invalid && passwordControl.touched }">{{ passwordControl.touched && passwordControl.invalid ? generateError(passwordControl) : 'Twoje haslo' }}</span>
   <nb-form-field class="form-element">
-    <input [(ngModel)]="password" (ngModelChange)="showPasswordChange($event)" required fullWidth="true" [type]="getInputTypeFirst()" nbInput placeholder="Wpisz swoje haslo">
+    <input #passwordControl="ngModel" name="password" [(ngModel)]="password" (ngModelChange)="showPasswordChange(passwordControl.errors)" required fullWidth="true" [type]="getInputTypeFirst()" nbInput placeholder="Wpisz swoje haslo" [status]="passwordControl.touched && passwordControl.invalid ? 'danger': 'basic'">
     <button nbSuffix nbButton ghost (click)="toggleShowFirstPassword()">
       <nb-icon [icon]="showPasswordFirst ? 'eye-outline' : 'eye-off-2-outline'"
               pack="eva"
@@ -20,9 +20,9 @@
       </nb-icon>
     </button>
   </nb-form-field>
-  <span class="label input-label">Wpisz haslo ponownie</span>
+  <span class="label input-label" [ngClass]="{'i-error' : confirmPasswordControl.invalid && confirmPasswordControl.touched }">{{ confirmPasswordControl.touched && confirmPasswordControl.invalid ? generateError(confirmPasswordControl) : 'Powtorz haslo' }}</span>
   <nb-form-field class="form-element">
-    <input [(ngModel)]="passwordRepeat" (ngModelChange)="showPasswordRepeatChange($event)" required fullWidth="true" [type]="getInputTypeSecond()" nbInput placeholder="Wpisz swoje haslo">
+    <input #confirmPasswordControl="ngModel" name="passwordRepeat" [(ngModel)]="passwordRepeat" (ngModelChange)="showPasswordRepeatChange(confirmPasswordControl.errors)" required fullWidth="true" [type]="getInputTypeSecond()" nbInput placeholder="Wpisz swoje haslo" [status]="confirmPasswordControl.touched && confirmPasswordControl.invalid ? 'danger': 'basic'">
     <button nbSuffix nbButton ghost (click)="toggleShowSecondPassword()">
       <nb-icon [icon]="showPasswordSecond ? 'eye-outline' : 'eye-off-2-outline'"
               pack="eva"
@@ -30,4 +30,4 @@
       </nb-icon>
     </button>
   </nb-form-field>
-</div>
+</form>

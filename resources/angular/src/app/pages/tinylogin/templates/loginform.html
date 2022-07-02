@@ -4,11 +4,11 @@
 <div class="login-secondarytext">
   <span class="caption">Bedziesz mogl korzystac z systemu po zalogowaniu</span>
 </div>
-<div class="form-inputs">
-  <span class="label input-label">Adres email</span>
+<form class="form-inputs" #login="ngForm">
+  <span class="label input-label" [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }">{{ emailControl.touched && emailControl.invalid ? generateError(emailControl) : 'Adres email' }}</span>
   <nb-form-field class="form-element">
     <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
-    <input type="text" nbInput fullWidth="true" placeholder="Wpisz swoj email">
+    <input name="email" type="text" email required nbInput [(ngModel)]="email" fullWidth="true" placeholder="Wpisz swoj email" [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }" #emailControl="ngModel" [status]="emailControl.touched && emailControl.invalid ? 'danger': 'basic'">
   </nb-form-field>
   <span class="label input-label">Twoje haslo</span>
   <nb-form-field class="form-element">
@@ -20,4 +20,4 @@
       </nb-icon>
     </button>
   </nb-form-field>
-</div>
+</form>

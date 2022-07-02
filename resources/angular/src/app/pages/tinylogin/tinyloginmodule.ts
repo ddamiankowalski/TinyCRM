@@ -5,6 +5,7 @@ import { LoginForm } from "./components/loginform";
 import { CommonModule } from "@angular/common";
 import { RegisterForm } from "./components/registerform";
 import { FormsModule } from '@angular/forms';
+import { MatchPasswordDirective } from "src/app/directives/matchpassworddirective";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     LoginForm,
     TinyWelcomePage,
-    RegisterForm
+    RegisterForm,
+    MatchPasswordDirective
   ],
   providers: [
     NbThemeService,

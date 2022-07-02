@@ -17,7 +17,7 @@ export class TinyCRM {
 
 @NgModule({
   declarations: [
-    TinyCRM
+    TinyCRM,
   ],
   imports: [
     TinyLoginModule,

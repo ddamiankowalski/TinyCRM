@@ -24,10 +24,12 @@ export class RegisterForm {
   }
 
   showPasswordChange(value: any) {
+    console.log(value)
     this.newUser.password = value;
   }
 
   showPasswordRepeatChange(value: any) {
+    console.log(value)
     this.newUser.passwordRepeat = value;
   }
 
@@ -51,5 +53,16 @@ export class RegisterForm {
 
   toggleShowSecondPassword() {
     this.showPasswordSecond = !this.showPasswordSecond;
+  }
+
+  generateError(model: any) {
+    if(model.control.errors['email']) {
+      return "Niepoprawny adres email"
+    } else if(model.control.errors['required']) {
+      return "Pole nie moze byc puste"
+    } else if(model.control.errors['matching']) {
+      return "Hasla nie sa takie same"
+    }
+    return "Pole nie moze byc puste"
   }
 }
