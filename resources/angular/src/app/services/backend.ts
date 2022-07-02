@@ -29,8 +29,6 @@ export class Backend {
       responseSubject = new Subject<any>();
     }
 
-    console.log(body)
-    console.log(this.getHeaders())
     this.http.post(
       this.backendUrl + '/' + encodeURI(route),
       body,

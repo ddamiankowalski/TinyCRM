@@ -16,7 +16,7 @@
         <login-form *ngIf="isLoginActive"></login-form>
         <register-form (registerObject)="getNewUser($event)" *ngIf="!isLoginActive"></register-form>
         <div class="button-section">
-          <button (click)="fireButtonAction()" class="btn" nbButton status="primary" size="medium" fullWidth="true">{{ isLoginActive ? 'Zaloguj' : 'Zarejestruj'}}</button>
+          <button [disabled]="isButtonActive()" (click)="fireButtonAction()" class="btn" nbButton status="primary" size="medium" fullWidth="true">{{ isLoginActive ? 'Zaloguj' : 'Zarejestruj'}}</button>
           <button class="btn" nbButton status="basic" size="medium" fullWidth="true" (click)="setLoginActive()">{{ isLoginActive ? 'Rejestracja' : 'Logowanie'}}</button>
         </div>
         <div class="pw-forgot-section">

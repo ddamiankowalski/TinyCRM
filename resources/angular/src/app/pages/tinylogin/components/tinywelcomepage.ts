@@ -3,10 +3,11 @@ import { CommonModule } from "@angular/common";
 import { Backend } from "src/app/services/backend";
 
 interface newUser {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string,
+  isValid: string
 }
 
 @Component({
@@ -21,13 +22,12 @@ export class TinyWelcomePage  {
   public subtitle: string = "CRM";
   public loggedIn: boolean = true;
   public isLoginActive: boolean = true;
-  public newUser: any = {};
+  public userModel: any = {};
 
   showPassword = false;
 
-  getNewUser(newUser: any) {
-    console.log(newUser);
-    this.newUser = newUser;
+  getNewUser(model: any) {
+    this.userModel = model;
   }
 
   getInputType() {
@@ -52,15 +52,20 @@ export class TinyWelcomePage  {
   login() {
   }
 
+  isButtonActive() {
+    return this.userModel.formStatus == "INVALID" ? true : false;
+  }
+
   register() {
     let newUser: newUser = {
       first_name: "firstName",
       last_name: "lastName",
-      email: this.newUser.email,
-      password: this.newUser.password
+      email: this.userModel.email,
+      password: this.userModel.password,
+      isValid: this.userModel.formStatus
     };
 
-    console.log(JSON.stringify(newUser))
+    console.log(newUser)
 
     this.backend.postRequest('register', JSON.stringify(newUser)).subscribe(response => {
       console.log(response);

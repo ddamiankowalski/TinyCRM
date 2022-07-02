@@ -5,18 +5,44 @@
   <span class="caption">Bedziesz mogl korzystac z systemu po zalogowaniu</span>
 </div>
 <form class="form-inputs" #login="ngForm">
-  <span class="label input-label" [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }">{{ emailControl.touched && emailControl.invalid ? generateError(emailControl) : 'Adres email' }}</span>
+  <span
+    class="label input-label"
+    [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }"
+    >{{ emailControl.touched && emailControl.invalid ?
+    generateError(emailControl) : 'Adres email' }}</span
+  >
   <nb-form-field class="form-element">
     <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
-    <input name="email" type="text" email required nbInput [(ngModel)]="email" fullWidth="true" placeholder="Wpisz swoj email" [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }" #emailControl="ngModel" [status]="emailControl.touched && emailControl.invalid ? 'danger': 'basic'">
+    <input
+      name="email"
+      type="text"
+      email
+      required
+      nbInput
+      [(ngModel)]="email"
+      fullWidth="true"
+      placeholder="Wpisz swoj email"
+      [ngClass]="{'i-error' : emailControl.invalid && emailControl.touched }"
+      #emailControl="ngModel"
+      [status]="emailControl.touched && emailControl.invalid ? 'danger': 'basic'"
+    />
   </nb-form-field>
   <span class="label input-label">Twoje haslo</span>
   <nb-form-field class="form-element">
-    <input fullWidth="true" [type]="getInputType()" nbInput placeholder="Wpisz swoje haslo">
+    <input
+
+    required
+      fullWidth="true"
+      [type]="getInputType()"
+      nbInput
+      placeholder="Wpisz swoje haslo"
+    />
     <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
-      <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
-              pack="eva"
-              [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+      <nb-icon
+        [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+        pack="eva"
+        [attr.aria-label]="showPassword ? 'hide password' : 'show password'"
+      >
       </nb-icon>
     </button>
   </nb-form-field>

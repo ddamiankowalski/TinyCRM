@@ -7,7 +7,11 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from "@angular/
 })
 export class RegisterForm {
   @Output() registerObject = new EventEmitter<any>();
-  public newUser: any = {};
+  public newUser: any = {
+    email: null,
+    password: null,
+    formStatus: 'INVALID'
+  };
 
   public showPasswordFirst: boolean = false;
   public showPasswordSecond: boolean = false;
@@ -19,18 +23,14 @@ export class RegisterForm {
     this.registerObject.emit(this.newUser);
   }
 
-  showEmailChange(value: any) {
-    this.newUser.email = value;
+  showEmailChange(model: any) {
+    this.newUser.email = model.form.value.email;
+    this.newUser.formStatus = model.control.status;
   }
 
-  showPasswordChange(value: any) {
-    console.log(value)
-    this.newUser.password = value;
-  }
-
-  showPasswordRepeatChange(value: any) {
-    console.log(value)
-    this.newUser.passwordRepeat = value;
+  showPasswordChange(model: any) {
+    this.newUser.password = model.control.value;
+    this.newUser.formStatus = model.control.status;
   }
 
   getInputTypeFirst() {
