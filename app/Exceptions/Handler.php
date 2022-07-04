@@ -47,4 +47,17 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, \Throwable $exception) {
+        if ($exception instanceof RegisterException) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Uzytkownik o podanym adresie email juz istnieje"
+                ],
+                400
+            );
+        }
+        return parent::render($request, $exception);
+    }
 }

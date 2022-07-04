@@ -6,6 +6,8 @@ import { CommonModule } from "@angular/common";
 import { RegisterForm } from "./components/registerform";
 import { FormsModule } from '@angular/forms';
 import { MatchPasswordDirective } from "src/app/directives/matchpassworddirective";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { MatchPasswordDirective } from "src/app/directives/matchpassworddirectiv
     NbActionsModule,
     NbButtonModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   declarations: [
     LoginForm,

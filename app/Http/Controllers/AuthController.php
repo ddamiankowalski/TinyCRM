@@ -2,23 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\RegisterException;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        return User::create([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+        $validation = FacadesValidator::make($request->json()->all(), [
+            'password' => 'required'
         ]);
+
+        if($validation->fails()){
+            return response([
+                'message' => 'Password is empty',
+                Response::HTTP_NOT_ACCEPTABLE
+            ]);
+        }
+
+        try {
+            return User::create([
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password'))
+            ]);
+        } catch (Throwable $e) {
+            throw new RegisterException($e);
+        }
     }
 
     public function login(Request $request)

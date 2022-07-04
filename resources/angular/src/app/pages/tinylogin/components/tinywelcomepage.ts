@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { Backend } from "src/app/services/backend";
+import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from "@nebular/theme";
 
 interface newUser {
   email: string,
@@ -14,7 +14,7 @@ interface newUser {
   selector: 'tiny-welcome-page'
 })
 export class TinyWelcomePage  {
-  constructor(public backend: Backend) {}
+  constructor(public backend: Backend, private toastrService: NbToastrService) {}
 
   public title: string = "Tiny";
   public subtitle: string = "CRM";
@@ -25,6 +25,8 @@ export class TinyWelcomePage  {
   public userModel: any = {
     formStatus: "INVALID"
   };
+
+  public physicalPositions = NbGlobalPhysicalPosition;
 
   getNewUser(model: any) {
     this.userModel = model;
@@ -62,13 +64,23 @@ export class TinyWelcomePage  {
     };
 
     this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000)
 
-    this.backend.postRequest('register', JSON.stringify(newUser)).subscribe(response => {
-      console.log(response);
-    })
+    this.backend.postRequest('register', JSON.stringify(newUser)).subscribe(
+      {
+        next: (result) => {
+          console.log(result)
+          this.isLoading = false;
+        },
+        error: (result) => {
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'danger', result);
+          this.isLoading = false;
+        }
+      }
+    )
+  }
+
+  showToast(position: NbGlobalPosition, status: string, message: string) {
+    this.toastrService.show(message , `Blad podczas tworzenia uzytkownika`, { position, status });
   }
 
   login() {

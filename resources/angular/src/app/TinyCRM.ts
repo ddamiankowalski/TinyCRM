@@ -6,6 +6,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { TinyWelcomePage } from './pages/tinylogin/components/tinywelcomepage';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { NbToastrModule } from '@nebular/theme';
 
 @Component({
   selector: 'tinycrm',
@@ -25,6 +26,7 @@ export class TinyCRM {
     BrowserModule,
     NbEvaIconsModule,
     HttpClientModule,
+    NbToastrModule.forRoot(),
     RouterModule.forRoot(
       [
         { path: "login", component: TinyWelcomePage },
