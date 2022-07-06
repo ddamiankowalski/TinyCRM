@@ -13,6 +13,8 @@ export class LoginForm {
     formStatus: 'INVALID'
   };
 
+  @Input() isLoading: boolean = false;
+
   ngOnInit(): void {
     this.loginObject.emit(this.newUser);
   }

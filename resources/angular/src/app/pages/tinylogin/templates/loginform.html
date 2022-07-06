@@ -1,5 +1,5 @@
 <div class="login-maintext">
-  <span class="h5">Zaloz nowe konto</span>
+  <span class="h5">Zaloguj sie</span>
 </div>
 <div class="login-secondarytext">
   <span class="caption">Bedziesz mogl korzystac z systemu po zalogowaniu</span>
@@ -14,6 +14,7 @@
   <nb-form-field class="form-element">
     <nb-icon icon="at-outline" pack="eva" nbSuffix></nb-icon>
     <input
+      [disabled]="isLoading"
       (ngModelChange)="getEmailChange(login)"
       name="email"
       type="text"
@@ -34,6 +35,7 @@
     generateError(passwordControl) : 'Adres email' }}</span>
   <nb-form-field class="form-element">
     <input
+      [disabled]="isLoading"
       name="password"
       [(ngModel)]="password"
       (ngModelChange)="getPasswordChange(login)"

@@ -48,10 +48,10 @@
 <body>
     <div id="wrapper">
         <div id="main-mail-message">
-            <h1>Witamy na burcie TinyCRM!</h1>
+            <h1>Witamy na pokladzie TinyCRM!</h1>
             <p>Otrzymalismy powiadomienie, ze uzytkownik skrzynki pocztowej, na ktorej przyszedl ten mail probowal zarejestrowac konto w naszym serwisie.</p>
             <p>Aby potwierdzic swoje konto, nacisnij w ponizszy przycisk:</p>
-            <a href={{ "http://localhost:4200/confirm/" . $details['account_id'] }}>
+            <a href={{ "http://localhost:4200/confirm/" . $details['register_uuid'] }}>
                 <div id="button" onClick="">
                     <b>AKTYWUJ KONTO</b>
                 </div>

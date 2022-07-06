@@ -1,7 +1,8 @@
-import { Component, ComponentFactoryResolver } from "@angular/core";
+import { Component, ComponentFactoryResolver, ElementRef, TemplateRef, ViewChild } from "@angular/core";
 import { Backend } from "src/app/services/backend";
-import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from "@nebular/theme";
+import { NbDialogService, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from "@nebular/theme";
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router } from "@angular/router";
 
 interface newUser {
   email: string,
@@ -15,7 +16,7 @@ interface newUser {
   selector: 'tiny-welcome-page'
 })
 export class TinyWelcomePage  {
-  constructor(public backend: Backend, private toastrService: NbToastrService, private CookieService: CookieService) {}
+  constructor(public backend: Backend, private toastrService: NbToastrService, private CookieService: CookieService, private dialogService: NbDialogService, private route: ActivatedRoute, private router: Router) {}
 
   public title: string = "Tiny";
   public subtitle: string = "CRM";
@@ -23,11 +24,35 @@ export class TinyWelcomePage  {
   public isLoginActive: boolean = true;
   public showPassword: boolean = false;
   public isLoading: boolean = false;
+  public isResendLoading: boolean = false;
   public userModel: any = {
     formStatus: "INVALID"
   };
 
+  @ViewChild('dialog', { static: true, read: TemplateRef }) dialog!: any;
+
   public physicalPositions = NbGlobalPhysicalPosition;
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if(params['uuid']) this.activateAcc(params['uuid'])
+    })
+  }
+
+  activateAcc(uuid: any) {
+    console.log(uuid)
+    this.backend.postRequest('activate', JSON.stringify({ uuid: uuid })).subscribe(
+      {
+        next: (value) => {
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'success', value, 'Mozesz sie teraz zalogowac na swoje konto')
+        },
+        error: (result) => {
+          console.log(result)
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'danger', result, `Blad podczas aktywacji konta`);
+        }
+      }
+    )
+  }
 
   getNewUser(model: any) {
     this.userModel = model;
@@ -69,9 +94,8 @@ export class TinyWelcomePage  {
       {
         next: (result) => {
           // here we have to handle what happens after the user registers
+          this.open(this.dialog);
           console.log(result)
-
-          this.isLoading = false;
         },
         error: (result) => {
           console.log(result)
@@ -103,7 +127,7 @@ export class TinyWelcomePage  {
           // navigate to a different screen
         },
         error: (result) => {
-          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'danger', result, `Blad podczas tworzenia uzytkownika`);
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'danger', result, `Blad podczas logowania`);
           this.isLoading = false;
         }
       }
@@ -112,5 +136,30 @@ export class TinyWelcomePage  {
 
   forgotPassword() {
     console.log('hello')
+  }
+
+  sendEmail() {
+    this.isResendLoading = true;
+    this.backend.postRequest('resendmail', JSON.stringify({ email: this.userModel.email })).subscribe(
+      {
+        next: (value) => {
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'success', 'Sprawdz swoja poczte', 'Poprawnie wyslano wiadomosc')
+          this.isResendLoading = false;
+        },
+        error: (result) => {
+          this.showToast(this.physicalPositions.BOTTOM_LEFT, 'danger', result, 'Blad podczas wysylania wiadomosci')
+        }
+      }
+    )
+  }
+
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, { context: 'Na podany adres email zostala wyslana wiadomosc z linkiem aktywujacym konto w systemie' });
+  }
+
+  close(ref: any, fn: any) {
+    ref.onClose = fn;
+    ref.close();
+    this.isLoading = false;
   }
 }

@@ -14,8 +14,8 @@
 
     <nb-card class="card-container" accent="info">
       <nb-card-body class="card">
-        <login-form *ngIf="isLoginActive" (loginObject)="getNewUser($event)"></login-form>
-        <register-form (registerObject)="getNewUser($event)" *ngIf="!isLoginActive"></register-form>
+        <login-form [isLoading]="isLoading" *ngIf="isLoginActive" (loginObject)="getNewUser($event)"></login-form>
+        <register-form [isLoading]="isLoading" (registerObject)="getNewUser($event)" *ngIf="!isLoginActive"></register-form>
         <div class="button-section">
           <button [disabled]="isButtonActive()" (click)="fireButtonAction()" class="btn" nbButton status="primary" size="medium" fullWidth="true">{{ isLoginActive ? 'Zaloguj' : 'Zarejestruj'}}</button>
           <button [disabled]="isLoading" class="btn" nbButton status="basic" size="medium" fullWidth="true" (click)="setLoginActive()">{{ isLoginActive ? 'Rejestracja' : 'Logowanie'}}</button>
@@ -34,3 +34,15 @@
     </div>
   </nb-layout-column>
 </nb-layout>
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Sukces! Do korzystania z TinyCRM dzieli Cie jeden krok!</nb-card-header>
+    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-footer>
+      <div class="button-section-register">
+        <button class="send-email-btn" status="primary" size="medium" nbButton (click)="close(ref,  setLoginActive() )">DOSTALEM WIADOMOSC</button>
+        <button [disabled]="isResendLoading" status="basic" size="medium" nbButton (click)="sendEmail()">WYSLIJ PONOWNIE</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

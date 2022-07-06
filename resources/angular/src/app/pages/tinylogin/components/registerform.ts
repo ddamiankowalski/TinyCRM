@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, Output, SimpleChanges, TemplateRef } from "@angular/core";
+import { NbDialogService } from "@nebular/theme";
 
 @Component({
   selector: 'register-form',
@@ -12,6 +13,8 @@ export class RegisterForm {
     password: null,
     formStatus: 'INVALID'
   };
+
+  @Input() isLoading: boolean = false;
 
   public showPasswordFirst: boolean = false;
   public showPasswordSecond: boolean = false;

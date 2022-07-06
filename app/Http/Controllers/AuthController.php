@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Register;
+use Illuminate\Support\Str;
 use Throwable;
 
 class AuthController extends Controller
@@ -32,17 +33,36 @@ class AuthController extends Controller
 
         $user = User::create([
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')),
+            'register_uuid' => Str::uuid()
         ]);
 
         if(!$user) {
             throw new RegisterException();
         }
         else {
-            $this->sendRegisterMail($request->input('email'), $user->id);
+            $this->sendRegisterMail($request->input('email'), $user->register_uuid);
         }
 
         return $user;
+    }
+
+    public function resendemail(Request $request)
+    {
+        $user = User::where('email', '=', $request->input('email'))->firstOrFail();
+        $this->sendRegisterMail($request->input('email'), $user->register_uuid);
+    }
+
+    public function activate(Request $request)
+    {
+        $user = User::where('register_uuid', '=', $request->input('uuid'))->firstOrFail();
+
+        $user->register_uuid = null;
+        $user->save();
+
+        return response([
+            'message' => 'Konto zostalo poprawnie zaktywowane',
+        ], Response::HTTP_ACCEPTED);
     }
 
     public function login(Request $request)
@@ -50,11 +70,16 @@ class AuthController extends Controller
         if(!Auth::attempt($request->only('email', 'password')))
         {
             return response([
-                'message' => 'Invalid credentials'
+                'message' => 'Nieprawidlowy adres email lub haslo'
             ], Response::HTTP_UNAUTHORIZED);
         } else {
             /** @var \App\Models\MyUserModel $user **/
             $user = Auth::user();
+            if($user->register_uuid != null) {
+                return response([
+                    'message' => 'Sprawdz skrzynke pocztowa aby aktywowac konto'
+                ], Response::HTTP_UNAUTHORIZED);
+            }
 
             $token = $user->createToken('token')->plainTextToken;
             $cookie = cookie('tinycrm_token', $token, 15);
@@ -63,7 +88,6 @@ class AuthController extends Controller
                 'message' => $token
             ])->withCookie($cookie);
         }
-
     }
 
     public function user()
@@ -80,11 +104,11 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function sendRegisterMail($mail, $id)
+    public function sendRegisterMail($mail, $register_uuid)
     {
         $details = [
             'account_mail' => $mail,
-            'account_id' => $id
+            'register_uuid' => $register_uuid
         ];
 
         Mail::to($mail)->send(new Register($details));
