@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, TemplateRef } from "@angular/core";
+import { Component, EventEmitter, Input, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 
 @Component({
@@ -7,6 +7,8 @@ import { NbDialogService } from "@nebular/theme";
   templateUrl: '../templates/registerform.html'
 })
 export class RegisterForm {
+  @ViewChildren('pwshow') pwshow!: QueryList<any>;
+
   @Output() registerObject = new EventEmitter<any>();
   public newUser: any = {
     email: null,
@@ -24,6 +26,12 @@ export class RegisterForm {
 
   ngOnInit(): void {
     this.registerObject.emit(this.newUser);
+  }
+
+  ngAfterViewInit() {
+    this.pwshow.forEach(element => {
+      element.hostElement.nativeElement.setAttribute('tabindex', '-1');
+    })
   }
 
   showEmailChange(model: any) {

@@ -40,7 +40,7 @@
     <nb-card-body>{{ data }}</nb-card-body>
     <nb-card-footer>
       <div class="button-section-register">
-        <button class="send-email-btn" status="primary" size="medium" nbButton (click)="close(ref,  setLoginActive() )">DOSTALEM WIADOMOSC</button>
+        <button class="send-email-btn" status="primary" size="medium" nbButton (click)="close(ref,  setLoginActive() )">OK</button>
         <button [disabled]="isResendLoading" status="basic" size="medium" nbButton (click)="sendEmail()">WYSLIJ PONOWNIE</button>
       </div>
     </nb-card-footer>

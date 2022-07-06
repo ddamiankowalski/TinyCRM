@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from "@angular/core";
 
 @Component({
   selector: 'login-form',
@@ -6,6 +6,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   templateUrl: '../templates/loginform.html'
 })
 export class LoginForm {
+  @ViewChildren('pwshow') pwshow!: QueryList<any>;
+
   @Output() loginObject = new EventEmitter<any>();
   public newUser: any = {
     email: null,
@@ -17,6 +19,12 @@ export class LoginForm {
 
   ngOnInit(): void {
     this.loginObject.emit(this.newUser);
+  }
+
+  ngAfterViewInit() {
+    this.pwshow.forEach(element => {
+      element.hostElement.nativeElement.setAttribute('tabindex', '-1');
+    })
   }
 
   public showPassword: boolean = false;

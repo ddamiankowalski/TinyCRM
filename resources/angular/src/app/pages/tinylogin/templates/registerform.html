@@ -52,7 +52,7 @@
       placeholder="Wpisz swoje haslo"
       [status]="passwordControl.touched && passwordControl.invalid ? 'danger': 'basic'"
     />
-    <button nbSuffix nbButton ghost (click)="toggleShowFirstPassword()">
+    <button #pwshow nbSuffix nbButton ghost (click)="toggleShowFirstPassword()">
       <nb-icon
         [icon]="showPasswordFirst ? 'eye-outline' : 'eye-off-2-outline'"
         pack="eva"
@@ -81,7 +81,7 @@
       placeholder="Wpisz swoje haslo"
       [status]="confirmPasswordControl.touched && confirmPasswordControl.invalid ? 'danger': 'basic'"
     />
-    <button nbSuffix nbButton ghost (click)="toggleShowSecondPassword()">
+    <button #pwshow tabindex="-1" nbSuffix nbButton ghost (click)="toggleShowSecondPassword()">
       <nb-icon
         [icon]="showPasswordSecond ? 'eye-outline' : 'eye-off-2-outline'"
         pack="eva"
