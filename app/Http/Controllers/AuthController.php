@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\RegisterException;
 use App\Models\User;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Register;
 use Throwable;
 
 class AuthController extends Controller
@@ -21,6 +22,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+
         if($validation->fails()){
             return response([
                 'message' => 'Password is empty',
@@ -28,14 +30,19 @@ class AuthController extends Controller
             ]);
         }
 
-        try {
-            return User::create([
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password'))
-            ]);
-        } catch (Throwable $e) {
-            throw new RegisterException($e);
+        $user = User::create([
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password'))
+        ]);
+
+        if(!$user) {
+            throw new RegisterException();
         }
+        else {
+            $this->sendRegisterMail($request->input('email'), $user->id);
+        }
+
+        return $user;
     }
 
     public function login(Request $request)
@@ -50,7 +57,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             $token = $user->createToken('token')->plainTextToken;
-            $cookie = cookie('jwt', $token, 15);
+            $cookie = cookie('tinycrm_token', $token, 15);
 
             return response([
                 'message' => $token
@@ -66,10 +73,20 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $cookie = Cookie::forget('jwt');
+        $cookie = Cookie::forget('tinycrm_token');
 
         return response([
             'message' => 'Success'
         ])->withCookie($cookie);
+    }
+
+    public function sendRegisterMail($mail, $id)
+    {
+        $details = [
+            'account_mail' => $mail,
+            'account_id' => $id
+        ];
+
+        Mail::to($mail)->send(new Register($details));
     }
 }

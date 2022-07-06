@@ -42,12 +42,12 @@ export class LoginForm {
   }
 
   getEmailChange(model: any) {
-    this.newUser.password = model.control.value;
+    this.newUser.email = model.control.value.email;
     this.newUser.formStatus = model.control.status;
   }
 
   getPasswordChange(model: any) {
-    this.newUser.password = model.control.value;
+    this.newUser.password = model.control.value.password;
     this.newUser.formStatus = model.control.status;
   }
 }
