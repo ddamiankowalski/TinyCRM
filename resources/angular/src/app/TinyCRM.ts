@@ -7,6 +7,8 @@ import { TinyWelcomePage } from './pages/tinylogin/components/tinywelcomepage';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NbDialogModule, NbToastrModule } from '@nebular/theme';
+import { ConfirmPage } from './pages/tinyconfirm/components/confirmpage';
+import { TinyConfirmModule } from './pages/tinyconfirm/tinyconfirmmodule';
 
 @Component({
   selector: 'tinycrm',
@@ -22,6 +24,7 @@ export class TinyCRM {
   ],
   imports: [
     TinyLoginModule,
+    TinyConfirmModule,
     CommonModule,
     BrowserModule,
     NbEvaIconsModule,
@@ -32,7 +35,7 @@ export class TinyCRM {
       [
         { path: "login", component: TinyWelcomePage },
         { path: '', redirectTo: '/login', pathMatch: 'full' },
-        { path: 'confirm/:uuid', component: TinyWelcomePage }
+        { path: 'confirm/:uuid', component: ConfirmPage }
       ]
     ),
   ],

@@ -1,0 +1,68 @@
+<nb-layout>
+  <nb-layout-header>
+    <nb-card-body>
+      <nb-actions fullWidth="true" size="tiny">
+        <nb-action [disabled]="loggedIn" icon="search"></nb-action>
+        <span class="caption">Zapomniales haslo? </span>
+        <nb-action [disabled]="loggedIn"icon="power"></nb-action>
+        <nb-action [disabled]="loggedIn" icon="person"></nb-action>
+        <nb-action [disabled]="loggedIn" icon="home"></nb-action>
+      </nb-actions>
+    </nb-card-body>
+  </nb-layout-header>
+  <nb-layout-column class="log-reg-form">
+
+    <nb-card class="card-confirm" accent="info">
+      <nb-card-header>
+        Wypelnij ponizsze pola aby uzupelnic brakujace informacje o Twoim koncie
+      </nb-card-header>
+      <nb-card-body class="card">
+        <nb-stepper linear="linearMode" orientation="horizontal">
+          <nb-step [label]="labelOne">
+            <ng-template #labelOne>First step</ng-template>
+            <h4>Step content #1</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton disabled nbStepperNext>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step [label]="labelTwo">
+            <ng-template #labelTwo>Second step</ng-template>
+            <h4>Step content #2</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step label="Third step">
+            <h4>Step content #3</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step [label]="labelFour">
+            <ng-template #labelFour>Fourth step</ng-template>
+            <h4>Step content #4</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton disabled nbStepperNext>next</button>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
