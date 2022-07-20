@@ -1,11 +1,55 @@
 .card-confirm {
-  width: 70%;
-  min-width: fit-content;
-  max-width: 800px;
+  gap: 5rem;
+  width: 60%;
+  padding: 2rem 4rem;
 }
 
 .log-reg-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.button-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.step-element {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.step-inputs-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.input-column {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-row {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.input-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
+.h6 {
+  margin-bottom: .3rem;
 }

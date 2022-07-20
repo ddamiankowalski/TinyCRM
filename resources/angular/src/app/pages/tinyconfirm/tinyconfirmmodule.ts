@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
-import { NbActionsModule, NbButtonModule, NbCardModule, NbLayoutModule, NbStepperModule } from "@nebular/theme";
+import { FormsModule } from "@angular/forms";
+import { NbActionsModule, NbButtonModule, NbCardModule, NbInputModule, NbLayoutModule, NbStepperModule } from "@nebular/theme";
 import { ConfirmPage } from "./components/confirmpage";
 
 @NgModule({
@@ -8,7 +9,9 @@ import { ConfirmPage } from "./components/confirmpage";
     NbCardModule,
     NbActionsModule,
     NbStepperModule,
-    NbButtonModule
+    NbButtonModule,
+    FormsModule,
+    NbInputModule
   ],
   declarations: [
     ConfirmPage,

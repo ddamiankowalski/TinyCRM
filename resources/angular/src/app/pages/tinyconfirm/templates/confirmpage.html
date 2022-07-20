@@ -4,62 +4,97 @@
       <nb-actions fullWidth="true" size="tiny">
         <nb-action [disabled]="loggedIn" icon="search"></nb-action>
         <span class="caption">Zapomniales haslo? </span>
-        <nb-action [disabled]="loggedIn"icon="power"></nb-action>
+        <nb-action [disabled]="loggedIn" icon="power"></nb-action>
         <nb-action [disabled]="loggedIn" icon="person"></nb-action>
         <nb-action [disabled]="loggedIn" icon="home"></nb-action>
       </nb-actions>
     </nb-card-body>
   </nb-layout-header>
   <nb-layout-column class="log-reg-form">
-
-    <nb-card class="card-confirm" accent="info">
-      <nb-card-header>
-        Wypelnij ponizsze pola aby uzupelnic brakujace informacje o Twoim koncie
-      </nb-card-header>
-      <nb-card-body class="card">
-        <nb-stepper linear="linearMode" orientation="horizontal">
-          <nb-step [label]="labelOne">
-            <ng-template #labelOne>First step</ng-template>
-            <h4>Step content #1</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton disabled nbStepperNext>prev</button>
-            <button nbButton nbStepperNext>next</button>
+    <nb-card class="card-confirm">
+      <nb-card-body>
+        <nb-stepper class="step-element" #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Dane podstawowe">
+            <form #nameForm="ngForm" class="step-inputs-buttons">
+              <div class="input-row">
+                <div class="input-column">
+                  <div class="input-label">
+                    <span class="label input-label">Imię</span>
+                    <div class="input-group">
+                      <input type="text"
+                      placeholder="Wpisz imię"
+                      class="form-control"
+                      name="name"
+                      required
+                      nbInput
+                      ngModel
+                      #name="ngModel"
+                      [status]="name.invalid && name.touched ? 'danger' : 'basic'">
+                    </div>
+                  </div>
+                  <div class="input-label">
+                    <span class="label input-label">Nazwisko</span>
+                    <div class="input-group">
+                      <input type="text"
+                      placeholder="Wpisz nazwisko"
+                      class="form-control"
+                      name="lname"
+                      required
+                      nbInput
+                      ngModel
+                      #lname="ngModel"
+                      [status]="lname.invalid && lname.touched ? 'danger' : 'basic'">
+                    </div>
+                  </div>
+                </div>
+                <div class="input-text">
+                  <span class="h6">To już ostatnie kroki...</span>
+                  <span class="caption">Wypełnij pola i przejdź dalej</span>
+                </div>
+              </div>
+              <div class="button-section">
+                <button nbButton nbStepperPrevious (click)="previousStep()" [disabled]="true">Poprzedni krok</button>
+                <button nbButton nbStepperNext (click)="nextStep()">Następny krok</button>
+              </div>
+            </form>
           </nb-step>
-          <nb-step [label]="labelTwo">
-            <ng-template #labelTwo>Second step</ng-template>
-            <h4>Step content #2</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>next</button>
+          <nb-step [stepControl]="nameForm" label="Adres">
+            <form #nameForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text"
+                placeholder="Enter your name"
+                class="form-control"
+                name="name"
+                required
+                nbInput
+                ngModel
+                #name="ngModel"
+                [status]="name.invalid ? 'danger' : 'basic'">
+              </div>
+              <div class="button-section">
+                <button nbButton nbStepperPrevious (click)="previousStep()">Poprzedni krok</button>
+                <button nbButton nbStepperNext (click)="nextStep()">Następny krok</button>
+              </div>
+            </form>
           </nb-step>
-          <nb-step label="Third step">
-            <h4>Step content #3</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>next</button>
-          </nb-step>
-          <nb-step [label]="labelFour">
-            <ng-template #labelFour>Fourth step</ng-template>
-            <h4>Step content #4</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton disabled nbStepperNext>next</button>
+          <nb-step [stepControl]="nameForm" label="Dane dodatkowe">
+            <form #nameForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text"
+                placeholder="Enter your name"
+                class="form-control"
+                name="name"
+                required
+                nbInput
+                ngModel
+                #name="ngModel"
+                [status]="name.invalid ? 'danger' : 'basic'">
+              </div>
+              <div class="button-section">
+                <button nbButton nbStepperPrevious (click)="previousStep()">Poprzedni krok</button>
+                <button nbButton nbStepperNext (click)="nextStep()" [disabled]="true">Następny krok</button>
+              </div>
+            </form>
           </nb-step>
         </nb-stepper>
       </nb-card-body>
